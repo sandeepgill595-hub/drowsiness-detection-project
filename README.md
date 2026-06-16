@@ -59,7 +59,7 @@ drowsiness_detection_project/
 Clone the repository:
 
 ```
-git clone <your-github-link>
+git clone <https://github.com/sandeepgill595-hub/drowsiness-detection-project.git>
 ```
 
 Move into project folder:

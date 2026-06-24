@@ -60,10 +60,12 @@ st.set_page_config(page_title="Drowsiness Detection System")
 
 choice = st.sidebar.selectbox(
     "MY MENU",
-    ("HOME", "IMAGE", "VIDEO", "CAMERA")
+    ("HOME", "IMAGE", "VIDEO")
 )
 
-mp_face_mesh = mp.solutions.face_mesh
+st.write(type(mp))
+st.write(dir(mp))
+st.stop()
 
 
 # =========================
@@ -77,9 +79,8 @@ if choice == "HOME":
     - Drowsy 🔴
 
     Supported Modes:
-    - IMAGE
+    - IMAGE 
     - VIDEO
-    - CAMERA
     """)
 
 
@@ -220,81 +221,81 @@ elif choice == "VIDEO":
 # =========================
 # CAMERA
 # =========================
-elif choice == "CAMERA":
-    st.header("Live Camera Detection")
+# elif choice == "CAMERA":
+#     st.header("Live Camera Detection")
 
-    start = st.button("Start Camera")
-    stop = st.button("Stop Camera")
+#     start = st.button("Start Camera")
+#     stop = st.button("Stop Camera")
 
-    frame_window = st.empty()
+#     frame_window = st.empty()
 
-    if start:
-        cap = cv2.VideoCapture(0)
-        fps = cap.get(cv2.CAP_PROP_FPS)
-        st.write("Camera FPS:", fps)
-        closed_frames = {}
-        drowsy_threshold_frames = 40
+#     if start:
+#         cap = cv2.VideoCapture(0)
+#         fps = cap.get(cv2.CAP_PROP_FPS)
+#         st.write("Camera FPS:", fps)
+#         closed_frames = {}
+#         drowsy_threshold_frames = 40
 
-        with mp_face_mesh.FaceMesh(
-            static_image_mode=False,
-            max_num_faces=5,
-            min_detection_confidence=0.5
-        ) as face_mesh:
+#         with mp_face_mesh.FaceMesh(
+#             static_image_mode=False,
+#             max_num_faces=5,
+#             min_detection_confidence=0.5
+#         ) as face_mesh:
 
-            while cap.isOpened():
-                if stop:
-                    break
+#             while cap.isOpened():
+#                 if stop:
+#                     break
 
-                ret, frame = cap.read()
+#                 ret, frame = cap.read()
 
-                if not ret:
-                    st.error("Camera not accessible")
-                    break
+#                 if not ret:
+#                     st.error("Camera not accessible")
+#                     break
 
-                rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                results = face_mesh.process(rgb)
+#                 rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+#                 results = face_mesh.process(rgb)
 
-                if results.multi_face_landmarks:
-                    for i, face_landmarks in enumerate(results.multi_face_landmarks):
-                        ear, x_min, y_min, x_max, y_max = process_face(frame, face_landmarks)
+#                 if results.multi_face_landmarks:
+#                     for i, face_landmarks in enumerate(results.multi_face_landmarks):
+#                         ear, x_min, y_min, x_max, y_max = process_face(frame, face_landmarks)
 
-                        if i not in closed_frames:
-                            closed_frames[i] = 0
+#                         if i not in closed_frames:
+#                             closed_frames[i] = 0
 
-                        if ear < 0.20:
-                            closed_frames[i] += 1
-                        else:
-                            closed_frames[i] = 0
+#                         if ear < 0.20:
+#                             closed_frames[i] += 1
+#                         else:
+#                             closed_frames[i] = 0
 
-                        if closed_frames[i] >= drowsy_threshold_frames:
-                            status = "Drowsy"
-                            color = (0, 0, 255)
-                        else:
-                            status = "Awake"
-                            color = (0, 255, 0)
+#                         if closed_frames[i] >= drowsy_threshold_frames:
+#                             status = "Drowsy"
+#                             color = (0, 0, 255)
+#                         else:
+#                             status = "Awake"
+#                             color = (0, 255, 0)
 
-                        cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), color, 3)
+#                         cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), color, 3)
 
-                        cv2.putText(
-                            frame,
-                            status,
-                            (x_min, y_min - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX,
-                            0.8,
-                            color,
-                            2
-                        )
+#                         cv2.putText(
+#                             frame,
+#                             status,
+#                             (x_min, y_min - 10),
+#                             cv2.FONT_HERSHEY_SIMPLEX,
+#                             0.8,
+#                             color,
+#                             2
+#                         )
 
-                        if closed_frames[i] >= drowsy_threshold_frames:
-                            cv2.putText(
-                                frame,
-                                "DROWSINESS ALERT",
-                                (50, 50),
-                                cv2.FONT_HERSHEY_SIMPLEX,
-                                1,
-                                (0, 0, 255),
-                                3
-                            )
-                frame_window.image(frame, channels="BGR")
+#                         if closed_frames[i] >= drowsy_threshold_frames:
+#                             cv2.putText(
+#                                 frame,
+#                                 "DROWSINESS ALERT",
+#                                 (50, 50),
+#                                 cv2.FONT_HERSHEY_SIMPLEX,
+#                                 1,
+#                                 (0, 0, 255),
+#                                 3
+#                             )
+#                 frame_window.image(frame, channels="BGR")
 
-        cap.release()        
+#         cap.release()        

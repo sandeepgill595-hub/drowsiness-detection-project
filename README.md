@@ -4,7 +4,7 @@
 
 This project is a real-time **Drowsiness Detection System** built using **Python, Streamlit, OpenCV, and MediaPipe**.
 
-The system monitors a user's eyes through webcam input and detects signs of drowsiness by calculating the eye opening gap using facial landmarks.
+The system monitors a user's eyes through webcam input in real time and detects signs of drowsiness by calculating the eye-opening gap using facial landmarks.
 
 When the eye gap falls below a defined threshold for a sustained period, the system classifies the user as **Drowsy**. Otherwise, the user is classified as **Awake**.
 
@@ -13,6 +13,7 @@ When the eye gap falls below a defined threshold for a sustained period, the sys
 ## Problem Statement
 
 Driver or operator drowsiness is a major cause of accidents and reduced productivity.
+
 This project aims to build a lightweight AI-based system that can detect drowsiness in real time and help improve safety.
 
 ---
@@ -22,7 +23,7 @@ This project aims to build a lightweight AI-based system that can detect drowsin
 * Real-time webcam monitoring
 * Face landmark detection
 * Eye gap calculation using Euclidean distance
-* Drowsiness detection based on threshold
+* Drowsiness detection based on a threshold
 * Live status display:
 
   * Awake
@@ -43,7 +44,7 @@ This project aims to build a lightweight AI-based system that can detect drowsin
 
 ## Project Structure
 
-```
+```bash
 drowsiness_detection_project/
 │
 ├── app.py
@@ -58,33 +59,33 @@ drowsiness_detection_project/
 
 Clone the repository:
 
-```
-git clone <https://github.com/sandeepgill595-hub/drowsiness-detection-project.git>
+```bash
+git clone https://github.com/sandeepgill595-hub/drowsiness-detection-project.git
 ```
 
-Move into project folder:
+Move into the project folder:
 
-```
+```bash
 cd drowsiness_detection_project
 ```
 
-Create virtual environment:
+Create a virtual environment:
 
-```
+```bash
 python -m venv venv
 ```
 
-Activate virtual environment:
+Activate the virtual environment:
 
-Windows:
+**Windows:**
 
-```
+```bash
 venv\Scripts\activate
 ```
 
 Install dependencies:
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
@@ -92,7 +93,7 @@ pip install -r requirements.txt
 
 ## Run the Application
 
-```
+```bash
 streamlit run app.py
 ```
 

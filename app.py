@@ -63,9 +63,7 @@ choice = st.sidebar.selectbox(
     ("HOME", "IMAGE", "VIDEO")
 )
 
-st.write(type(mp))
-st.write(dir(mp))
-st.stop()
+mp_face_mesh = mp.solutions.face_mesh
 
 
 # =========================
